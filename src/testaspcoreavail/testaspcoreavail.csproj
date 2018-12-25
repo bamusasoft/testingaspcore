@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\PdfLetters\LetterHead.pdf" />
+    <None Include="wwwroot\waqfletter\LetterHead.pdf" />
   </ItemGroup>
 
 
@@ -14,7 +14,13 @@
     <PackageReference Include="iTextSharp" Version="5.5.13" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.5.0" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="PdfLetters\" />
   </ItemGroup>
 
 </Project>

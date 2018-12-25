@@ -43,15 +43,36 @@ namespace testaspcoreavail.Controllers
         {
             try
             {
-                var rootPath = _hostingEnvironment.ContentRootPath;
-                _logger.LogCritical("Root Path is: " + rootPath);
+                var pdfFolder = string.Empty;
+                if (_hostingEnvironment.IsDevelopment())
+                {
+                    pdfFolder = _hostingEnvironment.ContentRootPath;
+                }
+                else 
+                {
+                    var homePath = Environment.GetEnvironmentVariable("Home");
+                    _logger.LogCritical("Home path is: " + homePath);
+                    pdfFolder = Path.Combine(homePath, "data", "PdfLetters");
+                    _logger.LogCritical("Pdf Folder path is: " + pdfFolder);
+
+                }
+
                 var webRoot = _hostingEnvironment.WebRootPath;
 
-                string src = Path.Combine(webRoot, "PdfLetters", "LetterHead.pdf");
+                string src = Path.Combine(webRoot, "waqfletter", "LetterHead.pdf");
 
+                string dest = string.Empty;
                 string fileName = "test.pdf";
+                if (_hostingEnvironment.IsDevelopment())
+                {
+                    dest = Path.Combine(pdfFolder, "PdfLetters", fileName);
+                }
+                else 
+                {
+                    dest = Path.Combine(pdfFolder, fileName);
+                    _logger.LogCritical("Pdf Folder Path: " + pdfFolder);
+                }
 
-                string dest = Path.Combine(webRoot, "PdfLetters", fileName);
 
 
                 var regularFont = Path.Combine(webRoot, "fonts", "trado.TTF");
@@ -69,7 +90,7 @@ namespace testaspcoreavail.Controllers
 
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                _logger.LogError(ex.StackTrace);
             }
             return View();
         }
